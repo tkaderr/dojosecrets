@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Recent Secrets...</h1>
+    {% for i in secrets %}
+    <p>
+      {{i.comment}}/({{i.created_at|timesince}} ago)/ {{i.likes.count}}_likes
+      {% if users not in i.likes.all %}
+      <a href="/addlike/{{i.id}}">like</a>
+      {% else %}
+      You liked this
+      {% endif %}
+      {% if request.session.id == i.users.id %}
+      <a href="/delete/{{i.id}}">Delete</a>
+      {% endif %}
+    </p>
+    {% endfor %}
+  </body>
+</html>
